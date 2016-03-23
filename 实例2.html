@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>实例</title>
+	<style type="text/css">
+		body{
+			background-color: #000000; color:#ffffff; font-size:30px;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<ul style="float:left; cursor:pointer;">
+		<li>秒</li>
+		<li>味</li>
+		<li>课</li>
+		<li>堂</li>
+	</ul>
+	<script type="text/javascript">
+	// 当点击画布旁边的文字后，文字逐步显现出来，每一个增加10%
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		
+		var li = document.getElementsByTagName('li');
+		var string;
+		for(var i = 0;i<li.length;i++){
+			li[i].onclick=function(){
+				var fontString = this.firstChild.nodeValue;
+				drawFont(fontString);
+			}
+		}
+		function drawFont(string){
+			var timer = null;
+			clearInterval(timer);//每次点击都要将上一次的定时器清除
+			var iNow = 0;
+			context.clearRect(0,0,canvas.width,canvas.height)
+			var fonth = 100;
+			context.save();
+			context.font = fonth +'px impact';
+			context.fillStyle = 'red';
+			context.textBaseline = 'top';
+			var fontw = context.measureText(string).width;
+			context.fillText(string,(canvas.width-fontw)/2,(canvas.height-fonth)/2);
+			var image = context.getImageData((canvas.width-fontw)/2,(canvas.height-fonth)/2,fontw,fonth);
+			context.clearRect(0,0,canvas.width,canvas.height);	
+			 var arr = randomArr(fonth*fontw,fontw*fonth/10);//arr是一个二维数组
+			var newImage = context.createImageData(fontw,fonth);
+			var timer = setInterval(function(){
+				for(var i = 0;i<arr[iNow].length;i++){
+				newImage.data[4*arr[iNow][i]] = image.data[4*arr[iNow][i]];
+				newImage.data[4*arr[iNow][i]+1] = image.data[4*arr[iNow][i]+1];
+				newImage.data[4*arr[iNow][i]+2] = image.data[4*arr[iNow][i]+2];
+				newImage.data[4*arr[iNow][i]+3] = image.data[4*arr[iNow][i]+3];
+			}
+			context.putImageData(newImage,(canvas.width-fontw)/2,(canvas.height-fonth)/2);
+			if(iNow>=9){
+				iNow = 0;
+				clearInterval(timer);
+			}else{
+				iNow++;
+			}
+			},200);
+			
+		}
+		//这个函数的作用是每次取得文字的10%的像素，将每一个取得的像素存放在一个数组中，
+		function randomArr(all,part){
+
+			var arr = [];
+			var allArr = [];
+			for(var i = 0;i<all;i++){
+				arr.push(i);
+			}
+			//下面这个循环嵌套的作用是：内循环将每一个取得像素值存放在一个数组中，外循环将内循环生成的数组添加到另一个数组中。
+			for(var k = 0;k<all/part;k++){
+				var newArr = [];
+				for(var j = 0;j<part;j++){
+				newArr.push(arr.splice(Math.floor(Math.random()*arr.length),1));
+				}
+				allArr.push(newArr);
+			}
+			
+			return allArr;
+		}
+	</script>
+</body>
+</html>

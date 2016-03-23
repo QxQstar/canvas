@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文字/渐变</title>
+	<style type="text/css">
+		body{
+			background-color:#000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		context.save();
+		context.font = '60px impact';
+		context.strokeStyle = 'red';
+		var fontWidth = context.measureText('你好').width;//获取文字的宽度，不能获取到高度，文字的高度等于文字的大小；
+		context.textBaseline = 'top';//以文字的上面为基准，还可以取的值有middle和bottom
+		context.strokeText('你好',200-fontWidth/2,200-60/2);
+		context.restore();
+		var linearColor = context.createLinearGradient(100,150,100,200);
+		linearColor.addColorStop(0,'red');
+		linearColor.addColorStop(0.5,'green');
+		linearColor.addColorStop(0.8,'blue');
+		linearColor.addColorStop(1,'#333333');
+		context.save();
+		context.fillStyle = linearColor;
+		context.fillRect(100,150,100,100);
+		context.restore;
+
+	</script>
+</body>
+</html>

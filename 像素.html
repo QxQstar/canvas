@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		context.fillRect(0,0,100,100);
+		var colorData = context.getImageData(0,0,100,100);//获取所画方块的像素值
+		// colorData.width;//得到一行像素的个数，在这里是100；
+		// colorData.height;//得到一列中像素的个数，在这里是100；
+		//colorData.data;//整体像素的数组集合.在这里这个数组的长度为40000—；原因是：在这里一个用100*100个像素，每一个像素用rgba颜色模式表示有四个值，4*10000=40000；这个数组中前四个值都是第一个像素的值。
+		for(var i=0;i<colorData.height*colorData.width;i++){
+			colorData.data[4*i] = 250;
+			colorData.data[4*i+1] = 0;
+			colorData.data[4*i+2] = 0;
+			colorData.data[4*i+3] = 250;
+		}//for循环用于改变颜色值，由原来的黑色变为红色
+		context.putImageData(colorData,200,200);//将用getImageData获取的颜色数据添加到以（200,200）为起点坐标的地方
+
+	</script>
+</body>
+</html>

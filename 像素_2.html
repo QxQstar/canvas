@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>创建像素</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var colorData = context.createImageData(100,100);// 创建一个高100个像素，宽100个像素的区域，默认颜色为黑色透明。
+		for(var i=0;i<colorData.width*colorData.height;i++){
+			colorData.data[4*i] = 255;
+			colorData.data[4*i+1] = 0;
+			colorData.data[4*i+2] = 0;
+			colorData.data[4*i+3] = 255;
+		}
+		context.putImageData(colorData,0,0);
+	</script>
+</body>
+</html>

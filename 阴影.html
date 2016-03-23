@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阴影</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		context.font = '60px impact';
+		context.textBaseline = 'top';
+		context.shadowOffsetX = 2;//x轴方向上偏移一个像素
+		context.shadowBlur = 2;
+		context.shadowColor = 'red';//阴影的颜色为红色,如果不设置阴影的颜色，阴影是出不来的
+		var fontWidth = context.measureText('你好').width;
+		context.fillText('你好',(canvas.width-fontWidth)/2,(canvas.height-60)/2);
+	</script>
+</body>
+</html>
