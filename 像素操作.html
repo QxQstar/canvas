@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>反色加倒影</title>
+	<style type="text/css">
+		body{
+			background-color:#000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<button type='button' id='button'>反色</button>
+	<canvas id='canvas' width='800' height='500'></canvas>
+	<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+	var button = document.getElementById('button');
+	var context = canvas.getContext('2d');
+	var img = new Image();
+	img.src = 'e298a879b0cc5e4bac86b0f5138868c0.jpg';
+	canvas.width = img.width;
+	context.drawImage(img,0,0);
+	var colorData =context.getImageData(0,0,img.width,img.height);
+	button.onclick=function(){
+		context.clearRect(0,0,canvas.width,canvas.height);
+		inverse(colorData);
+		daoying(colorData);
+		context.putImageData(colorData,0,0);
+	}//inverse这个函数实现反色
+	function inverse(colorObj){
+		var width = colorObj.width;
+		var height = colorObj.height;
+		for(var i = 0;i<width*height;i++){
+			colorObj.data[4*i] = 255-colorObj.data[4*i];
+			colorObj.data[4*i+1] = 255-colorObj.data[4*i+1];
+			colorObj.data[4*i+2] = 255-colorObj.data[4*i+2];
+		}
+	}
+	function daoying(colorObj){
+		var copyObj = colorObj;
+		var width = colorObj.width;
+		var height = colorObj.height;
+		for(var i = 0;i<height;i++){
+			for(var j = 0;j<width;j++){
+				colorObj.data[4*(i*width+j)] = copyObj.data[4*(((height-i)*width)+j)];
+				colorObj.data[4*(i*width+j)+1] = copyObj.data[4*(((height-i)*width)+j)+1];
+				colorObj.data[4*(i*width+j)+2] = copyObj.data[4*(((height-i)*width)+j)+2];
+			}
+		}
+	}
+	</script>
+</body>
+</html>

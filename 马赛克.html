@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>马赛克的效果</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var img = new Image();
+		img.src = '30dd23a927e548aeb278f664622ef67b.png';
+		canvas.height = img.height;
+		canvas.width = img.width;
+		context.drawImage(img,0,0);
+		
+	</script>
+</body>
+</html>
