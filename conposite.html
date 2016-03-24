@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>覆盖合成</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+		#img{
+			background-color:#333333;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<img src='' id='img'>
+	<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	var myImg = document.getElementById('img');
+	
+	context.fillRect(0,0,100,100);
+	context.save();
+	context.fillStyle = 'red';
+	//默认情况是源覆盖在目标上，已经绘制的图形叫做目标，新的图形叫做源
+	context.globalCompositeOperation = 'destination-over';//目标覆盖在源上，globalCompositeOperation能取的值还有其他的
+	context.fillRect(20,20,100,100);
+	context.restore();
+myImg.src = canvas.toDataURL();
+	</script>
+</body>
+</html>
