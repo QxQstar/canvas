@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas的事件操作</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color:#ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' width='400' height='400'></canvas>
+	<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	context.beginPath();
+	context.arc(100,100,50,0,2*Math.PI,0);
+	context.closePath();
+	context.fill();	
+	canvas.onmousedown = function(event){
+		var event = event||window.event;
+		var x = event.clientX - canvas.offsetLeft;//得到鼠标点击的点在画布中的x坐标
+		var y = event.clientY - canvas.offsetTop;
+		//如果（x，y）在圆形区域内就弹出123；这个方法只能针对最后画出来的图形
+		if(context.isPointInPath(x,y)){
+			alert('123');
+		}
+	}
+	</script>
+</body>
+</html>
