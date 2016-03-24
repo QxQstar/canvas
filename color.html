@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>颜色的叠加</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' height='400' width='400'></canvas>
+	<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	context.fillRect(0,0,100,100);
+	context.save();
+	context.fillStyle = 'red';
+	context.globalAlpha = 0.5;
+	context.fillRect(20,20,100,100);
+	context.restore();
+	</script>
+</body>
+</html>
