@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>方块移动</title>
+	<style type="text/css">
+		body{ background-color: #161414;}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' width='400' height='400'>
+		<!-- 如果浏览器不支持canvas就会执行canvas便签里面的代码 -->
+	<span>你的浏览器不支持canvas</sapn>	
+	</canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var i=40;
+		context.fillStyle='red';
+		context.fillRect(0,0,40,40);
+
+		var drawId=setInterval('draw()',500);
+	function draw(){
+		
+		context.clearRect(0,0,canvas.width,canvas.height);
+		context.fillStyle='red';
+		
+		context.fillRect(i,i,40,40);
+		i=i+40;
+		if(i>=canvas.width){
+			clearTimeout(drawId);
+		}
+	}
+	</script>
+</body>
+</html>

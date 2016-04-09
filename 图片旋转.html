@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片旋转</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<button type='button' id='rotate'>-></button>
+	<button type='button' id='recover'><-</button>
+	<div >
+		<img src="di.jpg" id='img'>
+	</div>
+	
+	<script type="text/javascript">
+		var rotate = document.getElementById('rotate');
+		var recover = document.getElementById('recover');
+		var img = document.getElementById('img');
+		var inow = 0;
+		var jnow = 0;
+		var image = new Image();
+		image.onload=function(){
+			draw(img);
+		};
+		image.src = img.src;
+		function draw(imgObj){
+			var canvas = document.createElement('canvas');
+			var context = canvas.getContext('2d');
+			canvas.width = imgObj.width;
+			canvas.height = imgObj.height;
+			imgObj.parentNode.replaceChild(canvas,imgObj);
+			context.drawImage(image,0,0);
+			rotate.onclick=function(){
+				if(inow==3){
+					inow=0;
+					}
+				else{
+					inow++;
+				}
+				toChange();
+			};
+			function toChange(){
+				switch(inow){
+					case 1:
+					canvas.height = image.width;
+					canvas.width = image.height;
+					context.rotate(90*Math.PI/180);
+					context.drawImage(image,0,-canvas.width);
+					break;
+					case 2:
+					canvas.height = image.height;
+					canvas.width = image.width;
+					context.rotate(180*Math.PI/180);
+					context.drawImage(image,-canvas.width,-canvas.height)
+					break;
+					case 3:
+					canvas.height = image.width;
+					canvas.width = image.height;
+					context.rotate(270*Math.PI/180);
+					context.drawImage(image,-canvas.height,0);
+					break;
+					case 0:
+					canvas.height = image.height;
+					canvas.width = image.width
+					context.rotate(0*Math.PI/180);
+					context.drawImage(image,0,0);
+					break;
+				}
+		}
+		recover.onclick=function(){
+			if(inow==0){
+				inow=3;
+			}else{
+				inow--;
+			}
+			toChange()
+		};
+		}
+		
+		//var canvas = document.getElementById('canvas');
+		//var context = canvas.getContext('2d');
+		
+	</script>
+</body>
+</html>

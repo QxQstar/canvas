@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' width='400' height='400'>
+		<span>你的浏览器不支持canvas</span>
+	</canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var image = new Image();
+		image.src = 'di.jpg';
+		image.onload = function(){
+			context.drawImage(this,0,200);
+		}
+	</script>
+</body>
+</html>

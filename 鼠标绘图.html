@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>鼠标绘图</title>
+	<style type="text/css">
+		body{ background-color: #161414;}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' width='400' height='400'>
+		<!-- 如果浏览器不支持canvas就会执行canvas便签里面的代码 -->
+	<span>你的浏览器不支持canvas</sapn>	
+	</canvas>
+	<script type="text/javascript">
+	window.onload = function(){
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		canvas.onmousedown=function(ev){
+			var ev = ev||window.event;
+			context.moveTo(ev.clientX - canvas.offsetLeft,ev.clientY - canvas.offsetTop);
+			document.onmousemove=function(ev){
+				var ev= ev||window.event;
+				context.lineTo(ev.clientX - canvas.offsetLeft,ev.clientY - canvas.offsetTop);
+				context.strokeStyle='red';
+				context.stroke();
+			}
+			document.onmouseup=function(){
+				document.onmousemove =null;
+				document.onmouseup =null;
+			}
+		}
+	}
+	</script>
+</body>
+</html>

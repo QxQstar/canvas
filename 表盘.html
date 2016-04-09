@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style type="text/css">
+		body{
+			background-color: #000000;
+		}
+		#canvas{
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<canvas id='canvas' width="400" height="400">
+		<span>你的浏览器不支持canvas</span>
+	</canvas>
+	<script type="text/javascript">
+		var canvas=document.getElementById('canvas');
+		var context=canvas.getContext('2d');
+		var x = canvas.width/2;
+		var y = canvas.height/2;
+		var r = canvas.width/2-50;//r为表盘的半径,在这里r=150；
+		var r2 = r-10;//r2为圆心到大刻度顶点的距离，在这里r2=140;
+		var r3 = r-20;
+		var r4 = r2;//r4为圆心到小刻度顶点的距离，在这里r4=140；
+		var r5 = r-12;
+		context.save();
+		context.beginPath();
+		context.arc(x,y,r,0,2*Math.PI);
+		context.stroke();//画表盘
+		context.moveTo(200,60);
+		context.lineTo(200,70);
+		//画大刻度开始
+		context.stroke();
+		for(var i=1;i<=11;i++){
+			context.moveTo(x+r2*Math.sin(i*(Math.PI/6)),y-r2*Math.cos(i*(Math.PI/6)));
+			context.lineTo(x+r3*Math.sin(i*(Math.PI/6)),y-r3*Math.cos(i*(Math.PI/6)));
+			context.stroke();
+		}
+		//画大刻度结束
+		context.moveTo(200,60);
+		context.lineTo(200,65);
+		//画小刻度开始
+		context.stroke();
+		for(var i=1;i<=59;i++){
+			context.moveTo(x+r4*Math.sin(i*(Math.PI/30)),y-r4*Math.cos(i*(Math.PI/30)));
+			context.lineTo(x+r5*Math.sin(i*(Math.PI/30)),y-r5*Math.cos(i*(Math.PI/30)));
+			context.stroke();
+			context.closePath();
+		}
+		context.restore();
+		//画小刻度结束
+		context.moveTo(210,200);
+		context.arc(x,y,10,0,2*Math.PI);
+		context.stroke();
+		context.restore();
+		//context,save()
+		context.beginPath()
+		context.lineWidth=3;
+		context.moveTo(200,130);
+		context.lineTo(200,200);
+		context.stroke();
+		//context.restore();
+		context.closePath();
+		context.beginPath()
+		context.lineWidth=2;
+		context.moveTo(190,120);
+		context.lineTo(200,200);
+		context.stroke();
+		context.closePath()
+		context.beginPath()
+		context.lineWidth=1;
+		context.moveTo(120,120);
+		context.lineTo(200,200);
+		context.stroke();
+		context.closePath()
+
+	</script>
+</body>
+</html>

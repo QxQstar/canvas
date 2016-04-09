@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片旋转——自己的理解</title>
+</head>
+<body>
+	<button type='button' id='rotate'>-></button>
+	<button type='button' id='recover'><-</button>
+	<div>
+		<canvas id='canvas'></canvas>
+	</div>
+	<script type="text/javascript">
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var image = new Image();
+		var inow = 0;
+		image.src = ' di.jpg';
+		canvas.width = image.width;
+		canvas.height = image.height;
+		context.drawImage(image,0,0);
+		rotate.onclick=function(){
+			if(inow==3){
+				inow=0;
+			}else{
+				inow++;
+			}
+			toChange();
+		};
+		recover.onclick=function(){
+			if(inow==0){
+				inow=3;
+			}else{
+				inow--;
+			}
+			toChange()
+		};
+		function toChange(){
+			switch(inow){
+				case 1:
+				canvas.height = image.width;
+				canvas.width = image.height;
+				context.rotate(90*Math.PI/180);
+				context.drawImage(image,0,-canvas.width);
+				break;
+				case 2:
+				canvas.height = image.height;
+				canvas.width = image.width;
+				context.rotate(180*Math.PI/180);
+				context.drawImage(image,-canvas.width,-canvas.height)
+				break;
+				case 3:
+				canvas.height = image.width;
+				canvas.width = image.height;
+				context.rotate(270*Math.PI/180);
+				context.drawImage(image,-canvas.height,0);
+				break;
+				case 0:
+				canvas.height = image.height;
+				canvas.width = image.width
+				context.rotate(0*Math.PI/180);
+				context.drawImage(image,0,0);
+				break;
+			}
+		}
+	</script>
+</body>
+</html>
